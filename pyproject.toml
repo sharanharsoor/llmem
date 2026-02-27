@@ -48,9 +48,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/sharanharsoor/llmem"
-Repository = "https://github.com/sharanharsoor/llmem"
-Issues = "https://github.com/sharanharsoor/llmem/issues"
+Homepage = "https://github.com/sharanharsoor/llm-smartmem"
+Repository = "https://github.com/sharanharsoor/llm-smartmem"
+Issues = "https://github.com/sharanharsoor/llm-smartmem/issues"
 
 [build-system]
 requires = ["hatchling"]

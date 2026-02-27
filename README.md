@@ -1,9 +1,9 @@
-# LLMem
+# LLM SmartMem
 
 [![PyPI version](https://img.shields.io/pypi/v/llm-smartmem.svg)](https://pypi.org/project/llm-smartmem/)
 [![Python](https://img.shields.io/pypi/pyversions/llm-smartmem.svg)](https://pypi.org/project/llm-smartmem/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://github.com/sharanharsoor/llmem/actions/workflows/test.yml/badge.svg)](https://github.com/sharanharsoor/llmem/actions/workflows/test.yml)
+[![Tests](https://github.com/sharanharsoor/llm-smartmem/actions/workflows/test.yml/badge.svg)](https://github.com/sharanharsoor/llm-smartmem/actions/workflows/test.yml)
 
 Smart memory management for LLM conversations - topic-aware compression that just works.
 
