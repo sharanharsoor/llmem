@@ -1,5 +1,5 @@
 [project]
-name = "llmem"
+name = "llm-smartmem"
 version = "0.1.0"
 description = "Smart memory management for LLM conversations - topic-aware compression that just works"
 readme = "README.md"
@@ -48,9 +48,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/llmem/llmem"
-Repository = "https://github.com/llmem/llmem"
-Issues = "https://github.com/llmem/llmem/issues"
+Homepage = "https://github.com/sharanharsoor/llmem"
+Repository = "https://github.com/sharanharsoor/llmem"
+Issues = "https://github.com/sharanharsoor/llmem/issues"
 
 [build-system]
 requires = ["hatchling"]

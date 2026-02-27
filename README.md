@@ -15,15 +15,15 @@ Smart memory management for LLM conversations - topic-aware compression that jus
 ## Installation
 
 ```bash
-pip install llmem
+pip install llm-smartmem
 ```
 
 With optional dependencies:
 
 ```bash
-pip install llmem[postgres]    # PostgreSQL storage
-pip install llmem[mongo]       # MongoDB storage
-pip install llmem[all]         # Everything
+pip install llm-smartmem[postgres]    # PostgreSQL storage
+pip install llm-smartmem[mongo]       # MongoDB storage
+pip install llm-smartmem[all]         # Everything
 ```
 
 ## Quick Start
