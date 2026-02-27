@@ -217,6 +217,7 @@ See the [examples/](examples/) folder for complete working demos:
 | `07_postgres_storage.py` | PostgreSQL persistent storage |
 | `08_mongodb_storage.py` | MongoDB persistent storage |
 | `09_e2e_agent_test.py` | End-to-end test with all backends |
+| `10_custom_storage.py` | Build your own storage backend |
 
 ### Running Examples
 
@@ -258,6 +259,49 @@ python examples/04_with_gemini.py
 | `InMemoryStorage` | Default, no persistence |
 | `PostgresStorage` | PostgreSQL with asyncpg |
 | `MongoStorage` | MongoDB with motor |
+| Custom | Implement `StorageBackend` for any database |
+
+## Custom Storage Backend
+
+LLMem supports **any database**. Implement the `StorageBackend` interface:
+
+```python
+from llmem.storage.base import StorageBackend
+from llmem.types import Turn, Topic
+
+class MyCustomStorage(StorageBackend):
+    """Your custom storage (Redis, SQLite, DynamoDB, etc.)"""
+    
+    async def save_turn(self, turn: Turn, thread_id: str) -> None:
+        # Save turn to your database
+        pass
+    
+    async def get_turns(self, thread_id: str, limit=None, offset=0) -> list:
+        # Retrieve turns from your database
+        pass
+    
+    async def get_turn_count(self, thread_id: str) -> int:
+        # Return count of turns
+        pass
+    
+    async def update_turn(self, turn: Turn, thread_id: str) -> None:
+        # Update existing turn
+        pass
+    
+    async def delete_turns(self, turn_ids: list, thread_id: str) -> None:
+        # Delete specific turns
+        pass
+    
+    async def clear(self, thread_id: str) -> None:
+        # Clear all turns for thread
+        pass
+
+# Use your custom storage
+storage = MyCustomStorage()
+memory = Memory(storage=storage)
+```
+
+See `examples/10_custom_storage.py` for complete Redis and SQLite reference implementations.
 
 ## Configuration
 
