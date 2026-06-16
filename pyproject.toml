@@ -1,6 +1,6 @@
 [project]
 name = "llm-smartmem"
-version = "0.1.2"
+version = "0.1.3"
 description = "Smart memory management for LLM conversations - topic-aware compression that just works"
 readme = "README.md"
 license = {text = "MIT"}
