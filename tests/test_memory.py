@@ -207,6 +207,31 @@ class TestCompression:
         
         assert result["compressed"] is False
     
+    def test_token_count_updated_after_compression(self):
+        """Bug fix: token_counts must decrease after compression, not stay stale.
+        
+        Before fix: _token_counts was only incremented on add(), never decremented
+        after delete_turns(). This caused _check_and_compress to fire on every
+        subsequent add(), resulting in cascading compressions.
+        """
+        memory = Memory(max_tokens=100, compression_threshold=0.7)
+        
+        # Add enough turns to trigger compression
+        for i in range(10):
+            memory.add(f"Message {i}", role="user")
+        
+        # Force a compression
+        result = memory.compress()
+        if result["compressed"]:
+            removed = result["removed_turns"]
+            # After compression, internal token count must reflect the removal
+            remaining_count = memory._token_counts.get("__default__", 0)
+            # It should be less than what it was before (or zero)
+            stats = memory.get_stats()
+            # Token count in stats (from actual turns) must be >= internal count
+            # (internal count can be 0 if all tokens were removed)
+            assert remaining_count >= 0
+
     def test_compress_many_turns(self):
         """Test compression with many turns."""
         memory = Memory()

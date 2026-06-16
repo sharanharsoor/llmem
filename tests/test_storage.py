@@ -90,6 +90,23 @@ class TestInMemoryStorage:
         assert turns[2].content == "Turn 4"
     
     @pytest.mark.asyncio
+    async def test_get_turns_returns_copy_not_reference(self, storage):
+        """Bug fix: get_turns must return a copy, not a reference to internal list.
+        
+        Before fix: callers could mutate _turns[thread_id] by modifying the
+        returned list, causing silent state corruption across requests.
+        """
+        await storage.save_turn(Turn(content="A", role="user"), "t1")
+        await storage.save_turn(Turn(content="B", role="user"), "t1")
+        
+        turns = await storage.get_turns("t1")
+        turns.clear()  # Mutate the returned list
+        
+        # Internal state must be unaffected
+        count = await storage.get_turn_count("t1")
+        assert count == 2, "Internal storage was corrupted by external mutation of returned list"
+
+    @pytest.mark.asyncio
     async def test_get_turn_count(self, storage):
         """Test turn count."""
         assert await storage.get_turn_count("t1") == 0

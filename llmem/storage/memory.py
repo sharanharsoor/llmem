@@ -34,8 +34,8 @@ class InMemoryStorage(StorageBackend):
         limit: Optional[int] = None,
         offset: int = 0
     ) -> List[Turn]:
-        """Get turns from memory."""
-        turns = self._turns[thread_id]
+        """Get turns from memory. Returns a copy — callers cannot mutate internal state."""
+        turns = list(self._turns[thread_id])  # copy, not reference
         
         if offset:
             turns = turns[offset:]

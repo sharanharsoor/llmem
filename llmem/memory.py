@@ -359,8 +359,11 @@ class Memory:
         to_remove = turns[:-keep_count]
         
         if to_remove:
+            # Decrement token count BEFORE deleting, so health is accurate after compression
+            removed_tokens = sum(t.token_count or 0 for t in to_remove)
             await self.storage.delete_turns([t.id for t in to_remove], tid)
-            
+            self._token_counts[tid] = max(0, self._token_counts.get(tid, 0) - removed_tokens)
+
             # Track compression
             self._compressions_count[tid] = self._compressions_count.get(tid, 0) + 1
             
@@ -368,6 +371,7 @@ class Memory:
                 "compressed": True,
                 "removed_turns": len(to_remove),
                 "remaining_turns": keep_count,
+                "removed_tokens": removed_tokens,
             }
             
             logger.info(f"Compressed: removed {len(to_remove)} turns")
